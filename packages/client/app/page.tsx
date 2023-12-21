@@ -4,9 +4,6 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className='flex flex-row w-[770px] h-[610px] bg-white rounded-lg'>
-        {/* <div className='w-[70px] bg-blue-300'>
-          
-        </div> */}
         <div className='mx-[70px] w-full flex flex-col'>
           <div className='h-full'>
             {/* Chat History */}
@@ -24,9 +21,6 @@ export default function Home() {
             <input placeholder="What's on your mind?" type="text" className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg  sm:text-md focus:ring-blue-500 focus:border-blue-500" />
           </div>
         </div>
-        {/* <div className='w-[70px] bg-blue-300'>
-          
-        </div> */}
       </div>
     </main>
   )
