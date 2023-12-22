@@ -1,4 +1,9 @@
+"use client"
+import { useState } from "react";
+
 export default function Home() {
+  const [message, setMessage] = useState('');
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className='flex flex-row w-[770px] h-[610px] bg-white rounded-lg'>
@@ -21,7 +26,14 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
             </button>
-            <input placeholder="What's on your mind?" type="text" className="focus:outline-none w-full" />
+            <input
+              placeholder="What's on your mind?"
+              type="text"
+              className="focus:outline-none w-full"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setMessage(event.target.value);
+              }}
+            />
             <div className="text-gray-400">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[30px] h-[30px]">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
