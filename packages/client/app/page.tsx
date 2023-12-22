@@ -1,8 +1,14 @@
 "use client"
+import { apiSendMessage } from "@/utils/api";
 import { useState } from "react";
 
 export default function Home() {
   const [message, setMessage] = useState('');
+
+  const sendMessage = async () => {
+    const res = await apiSendMessage(message);
+    console.log(res)
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -34,11 +40,14 @@ export default function Home() {
                 setMessage(event.target.value);
               }}
             />
-            <div className="text-gray-400">
+            <button 
+              className="text-gray-400"
+              onClick={sendMessage}
+            >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[30px] h-[30px]">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
               </svg>
-            </div>
+            </button>
           </div>
         </div>
       </div>
