@@ -20,6 +20,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// CORS: Set to correct origin in production ie http://localhost:3000 for dev
+// Would be best handle via an environment variable
 app.use(cors({origin: '*'}));
 
 app.use('/', indexRouter);
