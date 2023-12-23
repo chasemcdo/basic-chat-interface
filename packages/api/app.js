@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var mongoose  = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -24,6 +25,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // CORS: Set to correct origin in production ie http://localhost:3000 for dev
 // Would be best handle via an environment variable
 app.use(cors({origin: '*'}));
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://root:secret@localhost:27017');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
