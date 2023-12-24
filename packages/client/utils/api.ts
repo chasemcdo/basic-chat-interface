@@ -12,3 +12,8 @@ export const apiSendMessage = (
       message
     })
   });
+
+export const apiGetMessages = () =>
+  fetch(env.API_URL + "/api/chats", {
+    method: "GET"
+  });
