@@ -42,8 +42,6 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     return
   }
 
-  const collection = await mongoCollection()
-
   const memory = new BufferMemory({
     chatHistory: new MongoDBChatMessageHistory({
       collection: await mongoCollection(),
