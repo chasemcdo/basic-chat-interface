@@ -6,7 +6,13 @@ export default function Home() {
   const [message, setMessage] = useState('');
 
   const sendMessage = async () => {
-    const res = await apiSendMessage(message);
+    const res = await apiSendMessage(message)
+      .then((res) => 
+          res.json()
+            .then((data) => 
+              data.response
+            )
+        );
     console.log(res)
   };
 
@@ -25,7 +31,7 @@ export default function Home() {
             <button className='w-[149px] h-[40px] border border-gray-400 text-gray-400 rounded-full'>Task</button>
             <button className='w-[149px] h-[40px] border border-gray-400 text-gray-400 rounded-full'>Task</button>
           </div>
-          <div className='my-[16px] px-[18px] py-4 items-center flex flex-row w-full text-gray-900 border border-gray-300 rounded-xl sm:text-md'>
+          <div className={ 'my-[16px] px-[18px] py-4 items-center flex flex-row w-full text-gray-900 border rounded-xl sm:text-md ' + (message ? "border-gray-900" : "border-gray-400") }>
             {/* Message Input */}
             <button className="px-[4px] text-gray-400">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[30px] h-[30px]">
@@ -41,7 +47,8 @@ export default function Home() {
               }}
             />
             <button 
-              className="text-gray-400"
+              className={message ? "text-gray-900" : "text-gray-400"}
+              disabled={message.length === 0}
               onClick={sendMessage}
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[30px] h-[30px]">
