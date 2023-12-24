@@ -1,6 +1,5 @@
 "use client"
 import { apiGetMessages, apiSendMessage } from "@/utils/api";
-import { send } from "process";
 import { useEffect, useState } from "react";
 
 export default function Home() {
