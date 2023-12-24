@@ -1,10 +1,11 @@
 import { type NextFunction, type Request, type Response, Router } from 'express'
-import { type Collection, type Document, MongoClient, ObjectId } from 'mongodb'
+import { type Collection, type Document, MongoClient } from 'mongodb'
 import env from '../utils/env'
 import { BufferMemory } from 'langchain/memory'
 import { FakeListLLM } from 'langchain/llms/fake'
 import { ConversationChain } from 'langchain/chains'
 import { MongoDBChatMessageHistory } from 'langchain/stores/message/mongodb'
+import { getDefaultChatId } from '../utils/helper'
 
 const router = Router()
 
@@ -27,12 +28,11 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 
   const collection = await mongoCollection()
-  const sessionId = new ObjectId().toString() // Get from User model
 
   const memory = new BufferMemory({
     chatHistory: new MongoDBChatMessageHistory({
       collection,
-      sessionId
+      sessionId: await getDefaultChatId()
     })
   })
 
