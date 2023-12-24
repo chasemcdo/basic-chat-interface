@@ -11,9 +11,7 @@ var logger = require('morgan');
 var cors = require('cors');
 var mongoose = require('mongoose');
 
-var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var chatsRouter = require('./routes/chats');
 
 var app = express();
 
@@ -50,9 +48,7 @@ mongoose.connect(env.MONGODB_URI).then(() => {
   })
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/api/chats', chatsRouter);
+app.use('/api/chats', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req: Request, res: Response, next: NextFunction) {
