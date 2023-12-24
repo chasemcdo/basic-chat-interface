@@ -16,6 +16,21 @@ const mongoCollection = async (): Promise<Collection<Document>> => {
   return collection
 }
 
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+  const chatHistory = new MongoDBChatMessageHistory({
+    collection: await mongoCollection(),
+    sessionId: await getDefaultChatId()
+  })
+
+  const messages = (await chatHistory.getMessages()).map((message) => {
+    return {
+      message: message.content,
+      type: message._getType()
+    }
+  })
+  res.send(messages)
+})
+
 // Send Message
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   // Check if message param exists
@@ -31,7 +46,7 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
   const memory = new BufferMemory({
     chatHistory: new MongoDBChatMessageHistory({
-      collection,
+      collection: await mongoCollection(),
       sessionId: await getDefaultChatId()
     })
   })
