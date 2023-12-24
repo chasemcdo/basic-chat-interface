@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { type NextFunction, type Request, type Response, Router } from 'express'
 
-var router = Router();
+const router = Router()
 
 /* GET users listing. */
-router.get('/', function(req: Request, res: Response, next: NextFunction) {
-  res.send('respond with a resource');
-});
+router.get('/', function (req: Request, res: Response, next: NextFunction) {
+  res.send('respond with a resource')
+})
 
-module.exports = router;
+module.exports = router
