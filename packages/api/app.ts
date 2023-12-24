@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import env from "./utils/env";
+import User from "./models/user";
+import { ObjectId } from "mongodb";
 
 var createError = require('http-errors');
 var express = require('express');
@@ -30,7 +32,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({origin: '*'}));
 
 // Connect to MongoDB
-mongoose.connect(env.MONGODB_URI);
+mongoose.connect(env.MONGODB_URI).then(() => {
+  // Create default user if it doesn't exist
+  User.findByUsername('defaultuser', false).then((user) => {
+    if (user) {
+      console.log('Default user already exists');
+      return;
+    } else {
+      new User({
+        username: 'defaultuser',
+        firstName: 'John',
+        lastName: 'Doe',
+        chatId: new ObjectId().toString(),
+      }).save();
+      console.log('Default user created');
+    }
+  })
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
