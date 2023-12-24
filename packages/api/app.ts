@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import env from "./utils/env";
 
 var createError = require('http-errors');
 var express = require('express');
@@ -29,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({origin: '*'}));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://root:secret@localhost:27017');
+mongoose.connect(env.MONGODB_URI);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -51,6 +52,6 @@ app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
   res.render('error');
 });
 
-app.listen(process.env.PORT || '3001');
+app.listen(env.PORT);
 
 module.exports = app;
