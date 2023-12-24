@@ -5,8 +5,8 @@ const router = Router()
 // Send Message
 router.post('/', function (req: Request, res: Response, next: NextFunction) {
   // Check if message param exists
-  const message = req.body.message
-  if (!message) {
+  const { message } = req.body
+  if (message === undefined || message === '') {
     return res.status(400).send({
       message: 'The message param is required'
     })
