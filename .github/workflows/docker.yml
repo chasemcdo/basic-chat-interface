@@ -28,4 +28,4 @@ jobs:
         with:
           push: true
           tags: chasemcdougall/chat-backend:dev
-          context: packages/api
+          context: ./packages/api
