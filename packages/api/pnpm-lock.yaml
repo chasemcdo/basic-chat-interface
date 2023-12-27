@@ -4,90 +4,84 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-importers:
+dependencies:
+  cookie-parser:
+    specifier: ~1.4.4
+    version: 1.4.6
+  cors:
+    specifier: ^2.8.5
+    version: 2.8.5
+  debug:
+    specifier: ~2.6.9
+    version: 2.6.9
+  express:
+    specifier: ~4.16.1
+    version: 4.16.4
+  http-errors:
+    specifier: ~1.6.3
+    version: 1.6.3
+  langchain:
+    specifier: ^0.0.211
+    version: 0.0.211(mongodb@6.3.0)
+  mongodb:
+    specifier: ^6.3.0
+    version: 6.3.0
+  mongoose:
+    specifier: ^8.0.3
+    version: 8.0.3
+  morgan:
+    specifier: ~1.9.1
+    version: 1.9.1
+  passport:
+    specifier: ^0.7.0
+    version: 0.7.0
+  passport-local-mongoose:
+    specifier: ^8.0.0
+    version: 8.0.0
 
-  .:
-    dependencies:
-      cookie-parser:
-        specifier: ~1.4.4
-        version: 1.4.6
-      cors:
-        specifier: ^2.8.5
-        version: 2.8.5
-      debug:
-        specifier: ~2.6.9
-        version: 2.6.9
-      express:
-        specifier: ~4.16.1
-        version: 4.16.4
-      http-errors:
-        specifier: ~1.6.3
-        version: 1.6.3
-      langchain:
-        specifier: ^0.0.211
-        version: 0.0.211(mongodb@6.3.0)
-      mongodb:
-        specifier: ^6.3.0
-        version: 6.3.0
-      mongoose:
-        specifier: ^8.0.3
-        version: 8.0.3
-      morgan:
-        specifier: ~1.9.1
-        version: 1.9.1
-      passport:
-        specifier: ^0.7.0
-        version: 0.7.0
-      passport-local-mongoose:
-        specifier: ^8.0.0
-        version: 8.0.0
-    devDependencies:
-      '@types/express':
-        specifier: ^4.17.21
-        version: 4.17.21
-      '@types/node':
-        specifier: ^20
-        version: 20.10.5
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^6.4.0
-        version: 6.15.0(@typescript-eslint/parser@6.15.0)(eslint@8.56.0)(typescript@5.3.3)
-      eslint:
-        specifier: ^8.56.0
-        version: 8.56.0
-      eslint-config-prettier:
-        specifier: ^9.1.0
-        version: 9.1.0(eslint@8.56.0)
-      eslint-config-standard-with-typescript:
-        specifier: ^43.0.0
-        version: 43.0.0(@typescript-eslint/eslint-plugin@6.15.0)(eslint-plugin-import@2.29.1)(eslint-plugin-n@16.5.0)(eslint-plugin-promise@6.1.1)(eslint@8.56.0)(typescript@5.3.3)
-      eslint-plugin-import:
-        specifier: ^2.25.2
-        version: 2.29.1(@typescript-eslint/parser@6.15.0)(eslint@8.56.0)
-      eslint-plugin-n:
-        specifier: '^15.0.0 || ^16.0.0 '
-        version: 16.5.0(eslint@8.56.0)
-      eslint-plugin-prettier:
-        specifier: ^5.1.2
-        version: 5.1.2(eslint-config-prettier@9.1.0)(eslint@8.56.0)(prettier@3.1.1)
-      eslint-plugin-promise:
-        specifier: ^6.0.0
-        version: 6.1.1(eslint@8.56.0)
-      nodemon:
-        specifier: ^3.0.2
-        version: 3.0.2
-      prettier:
-        specifier: ^3.1.1
-        version: 3.1.1
-      ts-node:
-        specifier: ^10.9.2
-        version: 10.9.2(@types/node@20.10.5)(typescript@5.3.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
-
-  ../..: {}
-
-  ../client: {}
+devDependencies:
+  '@types/express':
+    specifier: ^4.17.21
+    version: 4.17.21
+  '@types/node':
+    specifier: ^20
+    version: 20.10.5
+  '@typescript-eslint/eslint-plugin':
+    specifier: ^6.4.0
+    version: 6.15.0(@typescript-eslint/parser@6.15.0)(eslint@8.56.0)(typescript@5.3.3)
+  eslint:
+    specifier: ^8.56.0
+    version: 8.56.0
+  eslint-config-prettier:
+    specifier: ^9.1.0
+    version: 9.1.0(eslint@8.56.0)
+  eslint-config-standard-with-typescript:
+    specifier: ^43.0.0
+    version: 43.0.0(@typescript-eslint/eslint-plugin@6.15.0)(eslint-plugin-import@2.29.1)(eslint-plugin-n@16.5.0)(eslint-plugin-promise@6.1.1)(eslint@8.56.0)(typescript@5.3.3)
+  eslint-plugin-import:
+    specifier: ^2.25.2
+    version: 2.29.1(@typescript-eslint/parser@6.15.0)(eslint@8.56.0)
+  eslint-plugin-n:
+    specifier: '^15.0.0 || ^16.0.0 '
+    version: 16.5.0(eslint@8.56.0)
+  eslint-plugin-prettier:
+    specifier: ^5.1.2
+    version: 5.1.2(eslint-config-prettier@9.1.0)(eslint@8.56.0)(prettier@3.1.1)
+  eslint-plugin-promise:
+    specifier: ^6.0.0
+    version: 6.1.1(eslint@8.56.0)
+  nodemon:
+    specifier: ^3.0.2
+    version: 3.0.2
+  prettier:
+    specifier: ^3.1.1
+    version: 3.1.1
+  ts-node:
+    specifier: ^10.9.2
+    version: 10.9.2(@types/node@20.10.5)(typescript@5.3.3)
+  typescript:
+    specifier: ^5.3.3
+    version: 5.3.3
 
 packages:
 
