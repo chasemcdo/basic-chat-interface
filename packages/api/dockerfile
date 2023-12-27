@@ -1,0 +1,21 @@
+# Base image
+FROM node:21-slim
+
+# Create app directory
+WORKDIR /app
+
+# Install app dependencies
+COPY package.json ./
+COPY pnpm-lock.yaml ./
+RUN npm install -g pnpm
+RUN pnpm install
+
+# Build the app
+COPY . .
+RUN npx tsc
+
+# Expose port (the port your app runs on)
+EXPOSE 3001
+
+# Start the server with pm2
+CMD ["node", "dist/app.js"]
