@@ -17,3 +17,8 @@ export const apiGetMessages = () =>
   fetch(env.API_URL + "/api/chats", {
     method: "GET"
   });
+
+export const apiResetMessages = () =>
+  fetch(env.API_URL + "/api/chats", {
+    method: "DELETE"
+  });
