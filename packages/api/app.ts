@@ -15,6 +15,8 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+app.set('view engine', 'html');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
