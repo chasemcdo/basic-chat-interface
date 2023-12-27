@@ -60,4 +60,16 @@ router.post("/", async (req: Request, res: Response) => {
   res.send(response);
 });
 
+// Delete Messages
+router.delete("/", async (req: Request, res: Response) => {
+  const chatHistory = new MongoDBChatMessageHistory({
+    collection: await mongoCollection(),
+    sessionId: await getDefaultChatId(),
+  });
+
+  chatHistory.clear();
+
+  res.send({ message: "Chat history cleared" });
+});
+
 module.exports = router;
