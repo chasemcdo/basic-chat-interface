@@ -12,6 +12,7 @@ var cors = require('cors');
 var mongoose = require('mongoose');
 
 var usersRouter = require('./routes/users');
+var indexRouter = require('./routes/index');
 var healthRouter = require('./routes/health');
 
 var app = express();
@@ -46,6 +47,7 @@ mongoose.connect(env.MONGODB_URI).then(() => {
 });
 
 app.use('/health', healthRouter);
+app.use('/', indexRouter);
 app.use('/api/chats', usersRouter);
 
 // catch 404 and forward to error handler
