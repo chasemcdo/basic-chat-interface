@@ -17,6 +17,7 @@ export default function Home() {
   }
 
   const handleMessage = async () => {
+    if (!message) return;
     await apiSendMessage(message);
     setMessage('');
     await getChatHistory();
@@ -52,7 +53,7 @@ export default function Home() {
             <button className='w-[149px] h-[40px] border border-gray-400 text-gray-400 rounded-full'>Task</button>
             <button className='w-[149px] h-[40px] border border-gray-400 text-gray-400 rounded-full'>Task</button>
           </div>
-          <div className={ 'my-[16px] px-[18px] py-4 items-center flex flex-row w-full text-gray-900 border rounded-xl sm:text-md ' + (message ? "border-gray-900" : "border-gray-400") }>
+          <form onSubmit={(e) => {e.preventDefault(); handleMessage()}} className={ 'my-[16px] px-[18px] py-4 items-center flex flex-row w-full text-gray-900 border rounded-xl sm:text-md ' + (message ? "border-gray-900" : "border-gray-400") }>
             {/* Message Input */}
             <button className="px-[4px] text-gray-400">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[30px] h-[30px]">
@@ -66,6 +67,7 @@ export default function Home() {
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setMessage(event.target.value);
               }}
+              onSubmit={() => {console.log("yyet")}}
               value={message}
             />
             <button 
@@ -77,7 +79,7 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
               </svg>
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </main>
