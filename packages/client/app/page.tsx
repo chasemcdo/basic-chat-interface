@@ -1,4 +1,5 @@
 "use client"
+import Task from "@/components/Task";
 import { apiGetMessages, apiResetMessages, apiSendMessage } from "@/utils/api";
 import { useEffect, useState } from "react";
 
@@ -61,12 +62,15 @@ export default function Home() {
             </div>
           </div>
           <div className='flex flex-row justify-between'>
-            {/* Tasks */}
-            {/* Convert to components with adjustable actions and text */}
-            <button className='w-[149px] h-[40px] border border-gray-400 text-gray-400 rounded-full'>Task</button>
-            <button className='w-[149px] h-[40px] border border-gray-400 text-gray-400 rounded-full'>Task</button>
-            <button className='w-[149px] h-[40px] border border-gray-400 text-gray-400 rounded-full'>Task</button>
-            <button className='w-[149px] h-[40px] border border-gray-400 text-gray-400 rounded-full'>Task</button>
+            {[1, 2, 3, 4].map(idx => {
+              return (
+                <Task 
+                  key={idx}
+                  title={`Task ${idx}`}
+                  action={async () => {console.log(`Task ${idx}`)}}
+                />
+              )
+            })}
           </div>
           <form onSubmit={(e) => {e.preventDefault(); handleMessage()}} className={ 'my-[16px] px-[18px] py-4 items-center flex flex-row w-full text-gray-900 border rounded-xl sm:text-md ' + (message ? "border-gray-900" : "border-gray-400") }>
             {/* Message Input */}
