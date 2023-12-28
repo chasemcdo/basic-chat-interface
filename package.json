@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "pnpm -r dev",
     "lint": "pnpm -r lint",
+    "lint:fix": "pnpm -r lint --fix",
     "prepare": "husky install"
   },
   "keywords": [],
