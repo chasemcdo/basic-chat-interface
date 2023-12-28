@@ -39,7 +39,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    initialLoad();
+    initialLoad(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -57,7 +57,7 @@ export default function Home() {
         </div>
         <div className='mx-[70px] w-full flex flex-col'>
           <div className='h-full overflow-y-auto my-4'>
-            <Messages 
+            <Messages
               chatHistory={chatHistory}
               loading={loading}
             />
