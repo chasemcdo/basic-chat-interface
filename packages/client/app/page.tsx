@@ -61,7 +61,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className='flex flex-row justify-between'>
+          <div className='flex flex-row gap-2 justify-between'>
             {[1, 2, 3, 4].map(idx => {
               return (
                 <Task 
