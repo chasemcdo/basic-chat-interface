@@ -1,6 +1,7 @@
 "use client";
 import Inputs from "@/components/Inputs";
 import Messages from "@/components/Messages";
+import Sidebar from "@/components/Sidebar";
 import Task from "@/components/Task";
 import { ChatMessage } from "@/helpers/types";
 import { apiGetMessages, apiResetMessages, apiSendMessage } from "@/utils/api";
@@ -11,6 +12,8 @@ export default function Home() {
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const getChatHistory = async () => {
     await apiGetMessages().then((res) =>
@@ -45,8 +48,9 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen items-center">
-      <div className="flex flex-row w-[770px] h-[610px] m-24">
-        <div className="flex flex-row relative w-full h-full bg-white rounded-lg">
+      <div className="flex flex-row w-[770px] h-[610px] m-24 rounded-lg overflow-hidden">
+        <Sidebar open={sidebarOpen} />
+        <div className="flex flex-row relative w-full h-full bg-white">
           <div className="absolute right-0 top-0 m-4 flex flex-col gap-2">
             {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
