@@ -59,6 +59,7 @@ export default function Home() {
           <div className='h-full overflow-y-auto my-4'>
             <Messages 
               chatHistory={chatHistory}
+              loading={loading}
             />
           </div>
           <div className='flex flex-row gap-2 justify-between'>
