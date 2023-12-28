@@ -67,7 +67,7 @@ const Inputs = ({ handleMessage, setMessage, message, sending }: Props) => {
           </svg>
         </button>
       ) : (
-        <Spinner height="w-[30px] h-[30px]"/>
+        <Spinner height="w-[30px] h-[30px]" />
       )}
     </form>
   );
