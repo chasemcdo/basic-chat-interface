@@ -10,6 +10,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(true);
+  const [sending, setSending] = useState(false);
 
   const getChatHistory = async () => {
     await apiGetMessages().then((res) =>
@@ -19,9 +20,11 @@ export default function Home() {
 
   const handleMessage = async () => {
     if (!message) return;
+    setSending(true);
     await apiSendMessage(message);
     setMessage("");
     await getChatHistory();
+    setSending(false);
   };
 
   const resetChat = async () => {
@@ -85,6 +88,7 @@ export default function Home() {
             message={message}
             setMessage={setMessage}
             handleMessage={handleMessage}
+            sending={sending}
           />
         </div>
       </div>

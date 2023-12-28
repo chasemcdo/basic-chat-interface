@@ -1,12 +1,14 @@
 import React, { Dispatch, SetStateAction } from "react";
+import Spinner from "./Spinner";
 
 type Props = {
   message: string;
+  sending: boolean;
   setMessage: Dispatch<SetStateAction<string>>;
   handleMessage: () => Promise<void>;
 };
 
-const Inputs = ({ handleMessage, setMessage, message }: Props) => {
+const Inputs = ({ handleMessage, setMessage, message, sending }: Props) => {
   return (
     <form
       onSubmit={(e) => {
@@ -43,26 +45,30 @@ const Inputs = ({ handleMessage, setMessage, message }: Props) => {
         }}
         value={message}
       />
-      <button
-        className={message ? "text-gray-900" : "text-gray-400"}
-        disabled={message.length === 0}
-        onClick={handleMessage}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-[30px] h-[30px]"
+      {!sending ? (
+        <button
+          className={message ? "text-gray-900" : "text-gray-400"}
+          disabled={message.length === 0}
+          onClick={handleMessage}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-[30px] h-[30px]"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+            />
+          </svg>
+        </button>
+      ) : (
+        <Spinner height="w-[30px] h-[30px]"/>
+      )}
     </form>
   );
 };
