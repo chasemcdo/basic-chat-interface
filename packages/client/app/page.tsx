@@ -24,9 +24,9 @@ export default function Home() {
     if (!message) return;
     setSending(true);
     await apiSendMessage(message);
-    setMessage("");
     await getChatHistory();
     setSending(false);
+    setMessage("");
   };
 
   const resetChat = async () => {
