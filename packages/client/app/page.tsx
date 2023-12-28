@@ -25,8 +25,10 @@ export default function Home() {
   };
 
   const resetChat = async () => {
+    setLoading(true);
     await apiResetMessages();
     await getChatHistory();
+    setLoading(false);
   };
 
   const initialLoad = async () => {
