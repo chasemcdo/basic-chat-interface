@@ -66,6 +66,4 @@ app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
   res.render('error');
 });
 
-app.listen(env.PORT);
-
 module.exports = app;
