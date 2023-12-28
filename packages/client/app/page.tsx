@@ -1,12 +1,15 @@
 "use client"
 import Inputs from "@/components/Inputs";
+import Messages from "@/components/Messages";
 import Task from "@/components/Task";
+import { ChatMessage } from "@/helpers/types";
 import { apiGetMessages, apiResetMessages, apiSendMessage } from "@/utils/api";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const [message, setMessage] = useState('');
-  const [chatHistory, setChatHistory] = useState<{message: string, type: string}[]>([]);
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const getChatHistory = async () => {
     await apiGetMessages()
@@ -30,8 +33,13 @@ export default function Home() {
     await getChatHistory();
   }
 
+  const initialLoad = async () => {
+    await getChatHistory();
+    setLoading(false);
+  }
+
   useEffect(() => {
-    getChatHistory();
+    initialLoad();
   }, []);
 
   return (
@@ -49,18 +57,9 @@ export default function Home() {
         </div>
         <div className='mx-[70px] w-full flex flex-col'>
           <div className='h-full overflow-y-auto my-4'>
-            {/* Chat History */}
-            <div className='flex flex-col h-full'>
-              {chatHistory.map((message, index) => (
-                <div key={index} className='flex flex-row items-center'>
-                  <div className='w-[30px] h-[30px] rounded-full bg-gray-400'></div>
-                  <div className='flex flex-col ml-[10px]'>
-                    <span className='text-gray-900 font-bold'>{message.type}</span>
-                    <span className='text-gray-500'>{message.message}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <Messages 
+              chatHistory={chatHistory}
+            />
           </div>
           <div className='flex flex-row gap-2 justify-between'>
             {[1, 2, 3, 4].map(idx => {
