@@ -48,7 +48,7 @@ mongoose.connect(env.MONGODB_URI).then(() => {
 
 app.use('/health', healthRouter);
 app.use('/', indexRouter);
-app.use('/api/chats', usersRouter);
+app.use('/users/msg', usersRouter); // omitted :id in favour of using passport auth
 
 // catch 404 and forward to error handler
 app.use(function(req: Request, res: Response, next: NextFunction) {
