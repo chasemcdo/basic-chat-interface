@@ -26,4 +26,8 @@ describe("Test messaging endpoints", () => {
   test("POST method without message returns 400", () => {
     return request(app).post("/users/msg").expect(400);
   });
+
+  test("DELETE method returns 200", () => {
+    return request(app).delete("/users/msg").expect(200);
+  });
 });
