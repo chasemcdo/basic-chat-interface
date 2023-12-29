@@ -5,7 +5,7 @@ import User from "./models/user";
 import { ObjectId } from "mongodb";
 
 // Connect to MongoDB
-mongoose.connect(env.MONGODB_URI).then(() => {
+mongoose.connect(env.MONGODB_URI, {dbName: "chat-interface-0"}).then(() => {
   // Create default user if it doesn't exist
   User.findByUsername('defaultuser', false).then((user) => {
     if (user) {
