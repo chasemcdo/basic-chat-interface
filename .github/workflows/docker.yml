@@ -28,6 +28,6 @@ jobs:
         with:
           push: false
           tags: chasemcdougall/chat-backend:dev
-          context: "{{defaultContext}}:packages/api"
+          context: "./packages/api"
       # - name: Deploy to Render
       #   run: curl https://api.render.com/deploy/srv-cm67eqocmk4c73cuc7g0?key=RxUvnrm6gPo
