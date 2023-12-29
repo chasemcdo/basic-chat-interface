@@ -26,8 +26,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          push: false
+          push: true
           tags: chasemcdougall/chat-backend:dev
           context: "./packages/api"
-      # - name: Deploy to Render
-      #   run: curl https://api.render.com/deploy/srv-cm67eqocmk4c73cuc7g0?key=RxUvnrm6gPo
+      - name: Deploy to Render
+        run: curl https://api.render.com/deploy/srv-cm67eqocmk4c73cuc7g0?key=RxUvnrm6gPo
