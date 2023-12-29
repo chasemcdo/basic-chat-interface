@@ -1,18 +1,24 @@
 "use client";
 import Inputs from "@/components/Inputs";
 import Messages from "@/components/Messages";
+import SearchBar from "@/components/SearchBar";
 import Sidebar from "@/components/Sidebar";
 import Task from "@/components/Task";
 import { ChatMessage } from "@/helpers/types";
 import { apiGetMessages, apiResetMessages, apiSendMessage } from "@/utils/api";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
+  const [filteredChatHistory, setFilteredChatHistory] = useState<ChatMessage[]>(
+    [],
+  );
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const getChatHistory = async () => {
     await apiGetMessages().then((res) =>
@@ -45,15 +51,45 @@ export default function Home() {
     initialLoad(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (searchQuery.length === 0) {
+      setFilteredChatHistory(chatHistory);
+      return;
+    }
+    setFilteredChatHistory(
+      chatHistory.filter((message) =>
+        message.message.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    );
+  }, [searchQuery, chatHistory]);
+
   return (
     <main className="flex flex-col min-h-screen items-center">
       <div className="flex flex-row w-[770px] h-[610px] m-24 rounded-lg overflow-hidden">
         <Sidebar open={sidebarOpen} />
         <div className="flex flex-row relative w-full h-full bg-white">
           <div className="absolute right-0 top-0 m-4 flex flex-col gap-2">
-            {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-            </svg> */}
+            <button
+              onClick={() => {
+                setSearchVisible(!searchVisible);
+                setSearchQuery("");
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+            </button>
             <button onClick={resetChat}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -111,8 +147,14 @@ export default function Home() {
             </button>
           </div>
           <div className="mx-[70px] w-full flex flex-col">
+            {searchVisible && (
+              <SearchBar
+                setSearchQuery={setSearchQuery}
+                setSearchVisible={setSearchVisible}
+              />
+            )}
             <div className="h-full overflow-y-auto my-4">
-              <Messages chatHistory={chatHistory} loading={loading} />
+              <Messages chatHistory={filteredChatHistory} loading={loading} />
             </div>
             <div className="flex flex-row gap-2 justify-between">
               {[1, 2, 3, 4].map((idx) => {
