@@ -15,4 +15,15 @@ describe("Test messaging endpoints", () => {
   test("GET method returns 200", () => {
     return request(app).get("/users/msg").expect(200);
   });
+
+  test("POST method with message returns 200", () => {
+    const payload = {
+      message: "Hello World",
+    };
+    return request(app).post("/users/msg").send(payload).expect(200);
+  });
+
+  test("POST method without message returns 400", () => {
+    return request(app).post("/users/msg").expect(400);
+  });
 });
