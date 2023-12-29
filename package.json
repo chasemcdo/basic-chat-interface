@@ -7,7 +7,7 @@
     "dev": "pnpm -r dev",
     "lint": "pnpm -r lint",
     "lint:fix": "pnpm -r lint --fix",
-    "test": "pnpm jest --force-exit",
+    "test": "pnpm -r test",
     "prepare": "husky install"
   },
   "keywords": [],
