@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon ./server.ts",
     "start": "tsc && node dist/server.js",
-    "lint": "eslint ./**/*.ts"
+    "lint": "eslint ./**/*.ts",
+    "test": "jest"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
