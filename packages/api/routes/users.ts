@@ -12,7 +12,7 @@ const router = Router();
 const mongoCollection = async (): Promise<Collection<Document>> => {
   const client = new MongoClient(env.MONGODB_URI);
   await client.connect();
-  const collection = client.db("langchain").collection("memory");
+  const collection = client.db("chat-interface-0").collection("messages");
   return collection;
 };
 

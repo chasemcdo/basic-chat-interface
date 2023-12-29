@@ -1,7 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import env from "./utils/env";
-import User from "./models/user";
-import { ObjectId } from "mongodb";
 
 var createError = require('http-errors');
 var express = require('express');
@@ -9,7 +6,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var mongoose = require('mongoose');
 
 var usersRouter = require('./routes/users');
 var indexRouter = require('./routes/index');
@@ -26,26 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // CORS: Set to correct origin in production ie http://localhost:3000 for dev
 // Would be best handle via an environment variable
 app.use(cors({origin: '*'}));
-
-// Connect to MongoDB
-mongoose.connect(env.MONGODB_URI).then(() => {
-  // Create default user if it doesn't exist
-  User.findByUsername('defaultuser', false).then((user) => {
-    if (user) {
-      console.log('Default user already exists');
-      return;
-    } else {
-      new User({
-        username: 'defaultuser',
-        firstName: 'John',
-        lastName: 'Doe',
-        chatId: new ObjectId().toString(),
-      }).save();
-      console.log('Default user created');
-    }
-  })
-});
-
 app.use('/health', healthRouter);
 app.use('/', indexRouter);
 app.use('/users/msg', usersRouter); // omitted :id in favour of using passport auth
@@ -66,6 +42,4 @@ app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
   res.render('error');
 });
 
-app.listen(env.PORT);
-
-module.exports = app;
+export default app;
