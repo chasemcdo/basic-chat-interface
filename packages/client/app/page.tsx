@@ -69,7 +69,12 @@ export default function Home() {
         <Sidebar open={sidebarOpen} />
         <div className="flex flex-row relative w-full h-full bg-white">
           <div className="absolute right-0 top-0 m-4 flex flex-col gap-2">
-            <button onClick={() => setSearchVisible(!searchVisible)}>
+            <button
+              onClick={() => {
+                setSearchVisible(!searchVisible);
+                setSearchQuery("");
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
