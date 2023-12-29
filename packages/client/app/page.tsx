@@ -1,6 +1,7 @@
 "use client";
 import Inputs from "@/components/Inputs";
 import Messages from "@/components/Messages";
+import SearchBar from "@/components/SearchBar";
 import Sidebar from "@/components/Sidebar";
 import Task from "@/components/Task";
 import { ChatMessage } from "@/helpers/types";
@@ -144,52 +145,10 @@ export default function Home() {
           </div>
           <div className="mx-[70px] w-full flex flex-col">
             {searchVisible && (
-              <div className="flex flex-row bg-gray-50 border border-gray-300 rounded-full items-center my-3 py-1 px-4 gap-2">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-                <input
-                  id="default-search"
-                  className="w-full focus:outline-none text-sm text-gray-900"
-                  placeholder="Search"
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setSearchQuery(event.target.value);
-                  }}
-                />
-                <button
-                  onClick={() => {
-                    setSearchVisible(false);
-                    setSearchQuery("");
-                  }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18 18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
+              <SearchBar
+                setSearchQuery={setSearchQuery}
+                setSearchVisible={setSearchVisible}
+              />
             )}
             <div className="h-full overflow-y-auto my-4">
               <Messages chatHistory={filteredChatHistory} loading={loading} />
