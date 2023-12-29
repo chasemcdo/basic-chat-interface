@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 RUN npm install -g pnpm
-RUN pnpm install -P
+RUN pnpm install
 
 # Build the app
 COPY . .
