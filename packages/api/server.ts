@@ -24,5 +24,5 @@ mongoose.connect(env.MONGODB_URI, {dbName: "chat-interface-0"}).then(() => {
 });
 
 app.listen(env.PORT, () => {
-  console.log("Service is listening on port 5678");
+  console.log(`Service is listening on port ${env.PORT}`);
 });
