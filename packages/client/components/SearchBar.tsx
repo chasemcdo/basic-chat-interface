@@ -9,7 +9,7 @@ const SearchBar = ({ setSearchQuery, setSearchVisible }: Props) => {
   return (
     <div className="flex flex-row bg-gray-50 border border-gray-300 rounded-full items-center my-3 py-1 px-4 gap-2">
       <svg
-        className="w-4 h-4 text-gray-500 dark:text-gray-400"
+        className="w-4 h-4 text-gray-500"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
