@@ -24,9 +24,20 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const getChatHistory = async () => {
-    await apiGetMessages().then((res) =>
-      res.json().then((data) => setChatHistory(data)),
-    );
+    await apiGetMessages()
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to get events");
+        }
+        res.json().then((data) => setChatHistory(data));
+      })
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Failed to get messages",
+          description: "Something went wrong. Please try again later",
+        });
+      });
   };
 
   const handleMessage = async () => {
@@ -72,16 +83,6 @@ export default function Home() {
         <Sidebar open={sidebarOpen} />
         <div className="flex flex-row relative w-full h-full bg-white">
           <div className="absolute right-0 top-0 m-4 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                toast({
-                  title: "Toast",
-                  description: "This is a toast",
-                });
-              }}
-            >
-              Toast
-            </button>
             <button
               onClick={() => {
                 setSearchVisible(!searchVisible);
