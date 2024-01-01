@@ -4,11 +4,14 @@ import Messages from "@/components/Messages";
 import SearchBar from "@/components/SearchBar";
 import Sidebar from "@/components/Sidebar";
 import Task from "@/components/Task";
+import { useToast } from "@/components/ui/use-toast";
 import { ChatMessage } from "@/helpers/types";
 import { apiGetMessages, apiResetMessages, apiSendMessage } from "@/utils/api";
 import React, { useEffect, useState } from "react";
 
 export default function Home() {
+  const { toast } = useToast();
+
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [filteredChatHistory, setFilteredChatHistory] = useState<ChatMessage[]>(
@@ -21,24 +24,59 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const getChatHistory = async () => {
-    await apiGetMessages().then((res) =>
-      res.json().then((data) => setChatHistory(data)),
-    );
+    await apiGetMessages()
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to get events");
+        }
+        res.json().then((data) => setChatHistory(data));
+      })
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Failed to get messages",
+          description: "Something went wrong. Please try again later",
+        });
+      });
   };
 
   const handleMessage = async () => {
     if (!message) return;
     setSending(true);
-    await apiSendMessage(message);
-    await getChatHistory();
+    await apiSendMessage(message)
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error("Failed to reset chat");
+        }
+        await getChatHistory();
+        setMessage("");
+      })
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Failed to send message",
+          description: "Something went wrong. Please try again later",
+        });
+      });
     setSending(false);
-    setMessage("");
   };
 
   const resetChat = async () => {
     setLoading(true);
-    await apiResetMessages();
-    await getChatHistory();
+    await apiResetMessages()
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error("Failed to reset chat");
+        }
+        await getChatHistory();
+      })
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Failed to delete messages",
+          description: "Something went wrong. Please try again later",
+        });
+      });
     setLoading(false);
   };
 
