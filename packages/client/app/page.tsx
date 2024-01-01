@@ -51,8 +51,20 @@ export default function Home() {
 
   const resetChat = async () => {
     setLoading(true);
-    await apiResetMessages();
-    await getChatHistory();
+    await apiResetMessages()
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error("Failed to reset chat");
+        }
+        await getChatHistory();
+      })
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Failed to delete messages",
+          description: "Something went wrong. Please try again later",
+        });
+      });
     setLoading(false);
   };
 
