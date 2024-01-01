@@ -43,10 +43,22 @@ export default function Home() {
   const handleMessage = async () => {
     if (!message) return;
     setSending(true);
-    await apiSendMessage(message);
-    await getChatHistory();
+    await apiSendMessage(message)
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error("Failed to reset chat");
+        }
+        await getChatHistory();
+        setMessage("");
+      })
+      .catch(() => {
+        toast({
+          variant: "destructive",
+          title: "Failed to send message",
+          description: "Something went wrong. Please try again later",
+        });
+      });
     setSending(false);
-    setMessage("");
   };
 
   const resetChat = async () => {
