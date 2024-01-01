@@ -4,11 +4,14 @@ import Messages from "@/components/Messages";
 import SearchBar from "@/components/SearchBar";
 import Sidebar from "@/components/Sidebar";
 import Task from "@/components/Task";
+import { useToast } from "@/components/ui/use-toast";
 import { ChatMessage } from "@/helpers/types";
 import { apiGetMessages, apiResetMessages, apiSendMessage } from "@/utils/api";
 import React, { useEffect, useState } from "react";
 
 export default function Home() {
+  const { toast } = useToast();
+
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [filteredChatHistory, setFilteredChatHistory] = useState<ChatMessage[]>(
@@ -69,6 +72,16 @@ export default function Home() {
         <Sidebar open={sidebarOpen} />
         <div className="flex flex-row relative w-full h-full bg-white">
           <div className="absolute right-0 top-0 m-4 flex flex-col gap-2">
+            <button
+              onClick={() => {
+                toast({
+                  title: "Toast",
+                  description: "This is a toast",
+                });
+              }}
+            >
+              Toast
+            </button>
             <button
               onClick={() => {
                 setSearchVisible(!searchVisible);
