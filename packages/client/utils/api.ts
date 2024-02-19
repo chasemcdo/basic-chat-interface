@@ -17,3 +17,8 @@ export const apiResetMessages = (id: string) =>
   fetch(env.API_URL + `/chats/msg?id=${id}`, {
     method: "DELETE"
   });
+
+export const apiGetChatIds = () =>
+  fetch(env.API_URL + "/chats", {
+    method: "GET"
+  });

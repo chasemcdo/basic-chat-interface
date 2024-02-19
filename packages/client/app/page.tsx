@@ -24,7 +24,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
 
   // eslint-disable-next-line no-unused-vars
-  const [chatId, setChatId] = useState("123");
+  const [chatId, setChatId] = useState("Chat 1");
 
   const getChatHistory = async () => {
     await apiGetMessages(chatId)
@@ -107,7 +107,15 @@ export default function Home() {
   return (
     <main className="flex flex-col min-h-screen items-center">
       <div className="flex flex-row w-[770px] h-[610px] m-24 rounded-lg overflow-hidden">
-        <Sidebar open={sidebarOpen} />
+        <Sidebar
+          open={sidebarOpen}
+          chatId={chatId}
+          setChatId={(id) => {
+            setLoading(true);
+            setChatId(id);
+            initialLoad();
+          }}
+        />
         <div className="flex flex-row relative w-full h-full bg-white">
           <div className="absolute right-0 top-0 m-4 flex flex-col gap-2">
             <button
