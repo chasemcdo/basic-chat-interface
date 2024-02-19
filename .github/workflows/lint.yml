@@ -25,4 +25,7 @@ jobs:
           run_install: true
 
     - name: Run Lint
-      run: pnpm lint
+      run: pnpm --filter client --filter api lint
+
+    - name: Python Lint
+      uses: chartboost/ruff-action@v1
