@@ -71,8 +71,7 @@ Chatbot:"""
     llm_chain = LLMChain(
         llm=llm,
         prompt=prompt,
-        verbose=True,
-        memory=memory,
+        memory=memory
     )
 
     output = llm_chain.predict(human_input=message)
