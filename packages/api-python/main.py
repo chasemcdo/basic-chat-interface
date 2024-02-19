@@ -16,7 +16,7 @@ client = MongoClient(environ["MONGODB_URI"])
 db = client["chat-interface-0"]
 message_collection = db["messages"]
 
-@app.get("/")
+@app.get("/health")
 def health():
     return {"status": "ok"}
 
