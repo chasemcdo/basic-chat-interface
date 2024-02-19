@@ -26,6 +26,7 @@ export default function Home() {
   const [chatIds, setChatIds] = useState<string[]>([]);
 
   const getChatHistory = async () => {
+    setChatHistory([]);
     await apiGetMessages(chatId)
       .then((res) => {
         if (!res.ok) {
