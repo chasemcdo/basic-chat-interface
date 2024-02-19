@@ -1,17 +1,18 @@
 import { apiGetChatIds } from "@/utils/api";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "./ui/use-toast";
 
 type Props = {
   open: boolean;
   chatId: string;
+  chatIds: string[];
   // eslint-disable-next-line no-unused-vars
   setChatId: (id: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  setChatIds: (ids: string[]) => void;
 };
 
-const Sidebar = ({ open, chatId, setChatId }: Props) => {
-  const [chatIds, setChatIds] = useState<string[]>([]);
-
+const Sidebar = ({ open, chatId, setChatId, chatIds, setChatIds }: Props) => {
   const getChatIds = async () => {
     apiGetChatIds()
       .then((res) => {
@@ -44,18 +45,13 @@ const Sidebar = ({ open, chatId, setChatId }: Props) => {
             {chatIds.map((mappedChatId) => {
               return (
                 <li key={mappedChatId}>
-                  <a
-                    className={
-                      "flex text-nowrap items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg hover:bg-gray-900 text-slate-400 hover:text-slate-300 focus:outline-none focus:ring-1 focus:ring-gray-600" +
-                      (mappedChatId === chatId
-                        ? " bg-slate-700 text-white"
-                        : "")
-                    }
-                    href="#"
+                  <button
+                    className="flex text-nowrap items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg hover:bg-gray-900 text-slate-400 hover:text-slate-300 focus:outline-none focus:ring-1 focus:ring-gray-600 disabled:bg-slate-700 disabled:text-white"
                     onClick={() => setChatId(mappedChatId)}
+                    disabled={mappedChatId === chatId}
                   >
                     {mappedChatId}
-                  </a>
+                  </button>
                 </li>
               );
             })}
