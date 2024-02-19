@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from os import environ
 from pymongo import MongoClient
@@ -11,6 +12,14 @@ from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 client = MongoClient(environ["MONGODB_URI"])
 db = client["chat-interface-0"]
