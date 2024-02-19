@@ -23,8 +23,11 @@ export default function Home() {
   const [searchVisible, setSearchVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  // eslint-disable-next-line no-unused-vars
+  const [chatId, setChatId] = useState("123");
+
   const getChatHistory = async () => {
-    await apiGetMessages()
+    await apiGetMessages(chatId)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to get events");
@@ -43,7 +46,7 @@ export default function Home() {
   const handleMessage = async () => {
     if (!message) return;
     setSending(true);
-    await apiSendMessage(message)
+    await apiSendMessage(message, chatId)
       .then(async (res) => {
         if (!res.ok) {
           throw new Error("Failed to send message");
@@ -63,7 +66,7 @@ export default function Home() {
 
   const resetChat = async () => {
     setLoading(true);
-    await apiResetMessages()
+    await apiResetMessages(chatId)
       .then(async (res) => {
         if (!res.ok) {
           throw new Error("Failed to reset chat");
