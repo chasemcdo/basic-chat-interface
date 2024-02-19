@@ -16,7 +16,7 @@ mongoose.connect(env.MONGODB_URI, {dbName: "chat-interface-0"}).then(() => {
         username: 'defaultuser',
         firstName: 'John',
         lastName: 'Doe',
-        chatId: new ObjectId().toString(),
+        chatIds: [new ObjectId().toString()],
       }).save();
       console.log('Default user created');
     }
