@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm -r dev",
+    "dev": "pnpm --filter api --filter client dev",
+    "dev:python": "pnpm --filter api-python --filter client dev",
     "lint": "pnpm -r lint",
     "lint:fix": "pnpm -r lint --fix",
     "test": "pnpm -r test",
