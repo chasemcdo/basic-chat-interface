@@ -2,7 +2,6 @@ from fastapi import FastAPI
 
 from os import environ
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 
 from langchain_community.chat_message_histories import MongoDBChatMessageHistory
 
