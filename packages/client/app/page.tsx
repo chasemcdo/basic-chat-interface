@@ -46,7 +46,7 @@ export default function Home() {
     await apiSendMessage(message)
       .then(async (res) => {
         if (!res.ok) {
-          throw new Error("Failed to reset chat");
+          throw new Error("Failed to send message");
         }
         await getChatHistory();
         setMessage("");
