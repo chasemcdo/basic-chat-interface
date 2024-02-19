@@ -4,13 +4,15 @@ on:
   push:
     branches:
       - 'main'
+      - 'feat/python-backend'
     tags: [ '*.*.*' ]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  docker:
+  docker_js:
+    if: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,5 +29,24 @@ jobs:
           push: true
           tags: chasemcdougall/chat-backend:dev
           context: "./packages/api"
+      - name: Deploy to Render
+        run: curl https://api.render.com/deploy/srv-cm67eqocmk4c73cuc7g0?key=RxUvnrm6gPo
+  docker_python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: chasemcdougall/chat-backend-python:dev
+          context: "./packages/api-python"
       - name: Deploy to Render
         run: curl https://api.render.com/deploy/srv-cm67eqocmk4c73cuc7g0?key=RxUvnrm6gPo
