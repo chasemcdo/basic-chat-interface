@@ -23,7 +23,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [chatId, setChatId] = useState("Chat 1");
-  const [chatIds, setChatIds] = useState<string[]>([]);
+  const [chatIds, setChatIds] = useState<string[]>(["Chat 1"]);
 
   const getChatHistory = async () => {
     setChatHistory([]);

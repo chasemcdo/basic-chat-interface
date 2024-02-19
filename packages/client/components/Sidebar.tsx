@@ -19,7 +19,13 @@ const Sidebar = ({ open, chatId, setChatId, chatIds, setChatIds }: Props) => {
         if (!res.ok) {
           throw new Error("Failed to get chat ids");
         }
-        res.json().then((data) => setChatIds(data));
+        res.json().then((data) => {
+          if (data.length > 0) {
+            setChatIds(data);
+          } else {
+            setChatIds(["Chat 1"]);
+          }
+        });
       })
       .catch(() => {
         toast({
