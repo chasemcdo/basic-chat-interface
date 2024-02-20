@@ -25,5 +25,5 @@ pnpm i
 
 4. Run the server
 ```bash
-pnpm dev
+pnpm dev:python
 ```
