@@ -20,22 +20,6 @@ const Inputs = ({ handleMessage, setMessage, message, sending }: Props) => {
         (message ? "border-gray-900" : "border-gray-400")
       }
     >
-      <button className="px-[4px] text-gray-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-[30px] h-[30px]"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"
-          />
-        </svg>
-      </button>
       <input
         placeholder="What's on your mind?"
         type="text"

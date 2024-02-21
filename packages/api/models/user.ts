@@ -15,8 +15,8 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  chatId: {
-    type: Schema.Types.ObjectId,
+  chatIds: {
+    type: Array<Schema.Types.ObjectId>,
   },
 });
 
