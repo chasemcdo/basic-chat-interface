@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from json import loads
+from datetime import datetime
 
 from os import environ
 from pymongo import MongoClient
@@ -61,8 +62,10 @@ def post_chat(id: str, message: str):
         collection_name="messages",
     )
 
-    template = """You are a AI having a conversation with a human.
-{chat_history}
+    system_prompt = f"""You are a AI having a conversation with a human.
+Today's date is {datetime.now()}"""
+
+    template = system_prompt + """{chat_history}
 Human: {human_input}
 AI:"""
 
@@ -71,7 +74,8 @@ AI:"""
     )
     memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_message_history)
 
-    llm = ChatOpenAI()
+    llm = ChatOpenAI(model_name="gpt-4-turbo-preview")
+
     tools = [convert_to_openai_tool(check_availability)]
     llm_with_tool = llm.bind_tools(tools=tools)
 
