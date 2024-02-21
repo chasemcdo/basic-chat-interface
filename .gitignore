@@ -4,4 +4,4 @@ build
 .env
 venv
 *.pyc
-*.json
+appointments.json
