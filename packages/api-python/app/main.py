@@ -65,6 +65,7 @@ def post_chat(id: str, message: str):
     system_prompt = f"""You are a AI having a conversation with a human.
 Today's date is {datetime.now()}
 The following appointments have been booked: {getAppointmentsData()}
+You can help the user book an appointment, but all other appointment management functionality is coming soon.
 """
 
     template = system_prompt + """{chat_history}
