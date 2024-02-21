@@ -2,11 +2,11 @@ import datetime
 import random
 import json
 
-def generate_appointments(start_date: datetime, days: int = 7, appointments_per_day: int = 3):
+def generate_appointments(start_date: datetime.datetime, days: int = 7, appointments_per_day: int = 3):
     """Generate a sequence of available appointments for a given date range which is stored in a JSON file.
 
     Args:
-        start_date: First integer
+        start_date: First day to generate appointments for
         days: Days to generate appointments for
         appointments_per_day: Appointments per day
     """
