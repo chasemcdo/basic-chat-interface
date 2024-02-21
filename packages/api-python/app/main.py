@@ -14,7 +14,7 @@ from langchain_openai import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 
-from .helpers import check_availability
+from .helpers import check_availability, getAppointmentsData
 
 app = FastAPI()
 
@@ -63,7 +63,9 @@ def post_chat(id: str, message: str):
     )
 
     system_prompt = f"""You are a AI having a conversation with a human.
-Today's date is {datetime.now()}"""
+Today's date is {datetime.now()}
+The following appointments have been booked: {getAppointmentsData()}
+"""
 
     template = system_prompt + """{chat_history}
 Human: {human_input}
@@ -85,8 +87,11 @@ AI:"""
     if "tool_calls" not in response.additional_kwargs:
         output = response.content
     else:
-        tool_call_arguments = loads(response.additional_kwargs["tool_calls"][0]["function"]["arguments"])
-        output = check_availability(month=int(tool_call_arguments["month"]), day=int(tool_call_arguments["day"]), hour=int(tool_call_arguments["hour"]), year=int(tool_call_arguments["year"]) if "year" in tool_call_arguments else 2024)
+        try:
+            tool_call_arguments = loads(response.additional_kwargs["tool_calls"][0]["function"]["arguments"])
+            output = check_availability(month=int(tool_call_arguments["month"]), day=int(tool_call_arguments["day"]), hour=int(tool_call_arguments["hour"]), year=int(tool_call_arguments["year"]) if "year" in tool_call_arguments else 2024)
+        except KeyError:
+            output = "Please provide a more specific date and time for the appointment"
 
     memory.save_context({"input": message}, {"output": output})
 
