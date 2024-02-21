@@ -4,8 +4,11 @@ import json
 file_name = "./app/appointments.json"
 
 def getAppointmentsData():
-    with open(file_name, 'r') as json_file:
-        my_list = json.load(json_file)
+    try:
+        with open(file_name, 'r') as json_file:
+            my_list = json.load(json_file)
+    except FileNotFoundError:
+        my_list = []
     return my_list
 
 def storeAppointmentsData(data):
