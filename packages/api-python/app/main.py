@@ -80,17 +80,14 @@ AI:"""
     llm_with_tool = llm.bind_tools(tools=tools)
 
     formatted_prompt = prompt.format(human_input=message, chat_history=memory.load_memory_variables({})["chat_history"])
-    # print(formatted_prompt)
     response = llm_with_tool.invoke(formatted_prompt)
-    # print(response)
+
     if "tool_calls" not in response.additional_kwargs:
         output = response.content
     else:
         tool_call_arguments = loads(response.additional_kwargs["tool_calls"][0]["function"]["arguments"])
-        print("Func Info")
-        print(tool_call_arguments)
         output = check_availability(month=int(tool_call_arguments["month"]), day=int(tool_call_arguments["day"]), hour=int(tool_call_arguments["hour"]), year=int(tool_call_arguments["year"]) if "year" in tool_call_arguments else 2024)
-        # output = "test"
+
     memory.save_context({"input": message}, {"output": output})
 
     return {"message": output}
